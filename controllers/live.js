@@ -6,9 +6,6 @@ const pool = new Pool(DATABASE_CONFIG);
 
 
 
-
-
-
 const getLives = (req,res,next) => {
   try{
     pool.query('SELECT * FROM lives')

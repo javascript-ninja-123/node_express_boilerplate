@@ -8,39 +8,43 @@ const {
   GraphQLNonNull
 } = graphql;
 const axios = require('axios');
-const habitatType = require('./HabitatType');
-const monsterType = require('./monsterType');
+const memberType = require('./memberType');
+const songType = require('./songType');
 
 const RootQuery = new GraphQLObjectType({
   name:'RootQueryType',
   fields:() => ({
-    habitat:{
-      type:habitatType,
-      args:{id:{type:new GraphQLNonNull(GraphQLString)}},
+    members:{
+      type: new GraphQLList(require('./memberType')),
       resolve(parentValue,args){
-        return axios.get(`http://localhost:4000/habitats/${args.id}`)
+        return axios.get('http://localhost:4000/member')
         .then(({data}) => data)
       }
     },
-    monster:{
-      type:monsterType,
-      args:{id:{type:new GraphQLNonNull(GraphQLString)}},
+    songs:{
+      type:new GraphQLList(require('./songType')),
       resolve(parentValue,args){
-        return axios.get(`http://localhost:4000/monsters/${args.id}`)
+        return axios.get('http://localhost:4000/song')
         .then(({data}) => data)
       }
     },
-    monsters:{
-      type:new GraphQLList(require('./monsterType')),
+    member:{
+      type:memberType,
+      args:{
+        id:{type:new GraphQLNonNull(GraphQLString)}
+      },
       resolve(parentValue,{id}){
-        return axios.get(`http://localhost:4000/monsters`)
+        return axios.get(`http://localhost:4000/member/${id}`)
         .then(({data}) => data)
       }
     },
-    habitats:{
-      type:new GraphQLList(require('./HabitatType')),
-      resolve(parentValue,args){
-        return axios.get('http://localhost:4000/habitats')
+    song:{
+      type:songType,
+      args:{
+        id:{type:new GraphQLNonNull(GraphQLString)}
+      },
+      resolve(parentValue,{id}){
+        return axios.get(`http://localhost:4000/member/${id}`)
         .then(({data}) => data)
       }
     }

@@ -4,7 +4,7 @@
 const DATABASE_CONFIG = {
   user:'node_user',
   host:'localhost',
-  database:'monstersdb',
+  database:'justmusicdb',
   password:"node_password",
   port:5432
 };

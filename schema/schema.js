@@ -7,5 +7,5 @@ const {
 
 module.exports = new GraphQLSchema({
   query:require('./root'),
-  // mutation:require('./mutation')
+  mutation:require('./mutation')
 });
